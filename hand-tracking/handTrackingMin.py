@@ -22,6 +22,10 @@ while True:
 
     if results.multi_hand_landmarks:
         for handLms in results.multi_hand_landmarks:
+            for id, lm in enumerate(handLms.landmark):
+                print(id, lm) #Print ids and landmarks of hands
+
+                
             # mpDraw.draw_landmarks(img, handLms) #Draw points on hands
             mpDraw.draw_landmarks(img, handLms, mpHands.HAND_CONNECTIONS) #Draw points along with connecting lines
     
