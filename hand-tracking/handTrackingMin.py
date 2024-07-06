@@ -3,6 +3,8 @@ import mediapipe as mp
 import time 
 
 cap = cv.VideoCapture(0)
+mpHands = mp.solutions.hands #Assigns hands module of mediapipe to mpHands
+hands = mpHands.Hands() #Create instance of Hands
 
 while True:
     success, img = cap.read()
