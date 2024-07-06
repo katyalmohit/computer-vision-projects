@@ -7,6 +7,9 @@ mpHands = mp.solutions.hands #Assigns hands module of mediapipe to mpHands
 hands = mpHands.Hands() #Create instance of Hands
 mpDraw = mp.solutions.drawing_utils #Assigns the drawing_utils module from mediapipe
 
+pTime = 0 #previous time
+cTime = 0 #current time
+
 while True:
     success, img = cap.read()
 
@@ -21,6 +24,13 @@ while True:
         for handLms in results.multi_hand_landmarks:
             # mpDraw.draw_landmarks(img, handLms) #Draw points on hands
             mpDraw.draw_landmarks(img, handLms, mpHands.HAND_CONNECTIONS) #Draw points along with connecting lines
+    
+    cTime = time.time()
+    fps = 1/(cTime-pTime)
+    pTime = cTime
+
+    cv.putText(img, str(int(fps)), (10, 70), cv.FONT_HERSHEY_PLAIN, 3, (0, 255, 0), 3)
+
     cv.imshow("Video", img)
     if cv.waitKey(20) & 0xFF == ord('q'):
         break
