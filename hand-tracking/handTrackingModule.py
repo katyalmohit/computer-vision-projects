@@ -17,26 +17,31 @@ class handDetector():
     def findHands(self, img, draw = True):
         #Convert to RGB bcz mediapipe expects the input image to be in RGB format
         imgRGB = cv.cvtColor(img, cv.COLOR_BGR2RGB)
-        results = self.hands.process(imgRGB)
+        self.results = self.hands.process(imgRGB)
 
         # #If Hand occurs in a frame it will return values otherwise none
         # print(results.multi_hand_landmarks)
 
-        if results.multi_hand_landmarks:
-            for handLms in results.multi_hand_landmarks:
+        if self.results.multi_hand_landmarks:
+            for handLms in self.results.multi_hand_landmarks:
                 if draw:
                     # mpDraw.draw_landmarks(img, handLms) #Draw points on hands
                     self.mpDraw.draw_landmarks(img, handLms, self.mpHands.HAND_CONNECTIONS) #Draw points along with connecting lines
         return img
 
-    
-            # for id, lm in enumerate(handLms.landmark):
-            #     # print(id, lm) #Print ids and landmarks of hands
-            #     h, w, c = img.shape
-            #     cx, cy = int(lm.x*w), int(lm.y*h)
-            #     print(id, cx, cy)
-            #     if (id ==0):
-            #         cv.circle(img, (cx, cy), 25, (255, 0, 255), -1)
+    def findPosition(self, img, handNum=0, draw=True):
+        lmList =[]
+        if self.results.multi_hand_landmarks:
+            myHand = self.results.multi_hand_landmarks[handNum]
+            for id, lm in enumerate(myHand.landmark):
+                # print(id, lm) #Print ids and landmarks of hands
+                h, w, c = img.shape
+                cx, cy = int(lm.x*w), int(lm.y*h)
+                # print(id, cx, cy)
+                lmList.append([id, cx, cy])
+                if draw:
+                    cv.circle(img, (cx, cy), 8, (255, 0, 255), -1)
+        return lmList
 
 
 def main():
@@ -50,6 +55,10 @@ def main():
         success, img = cap.read()
         
         img = detector.findHands(img)
+
+        lmList = detector.findPosition(img)
+        if len(lmList) != 0:
+            print(lmList[4]) #Print the landmarks of a specific handPoint
 
         cTime = time.time()
         fps = 1/(cTime-pTime)
