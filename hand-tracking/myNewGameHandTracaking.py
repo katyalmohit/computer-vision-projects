@@ -7,7 +7,7 @@ pTime = 0 #previous time
 cTime = 0 #current time
 cap = cv.VideoCapture(0)
 
-detector = handDetector()
+detector = htm.handDetector()
 
 while True:
     success, img = cap.read()
