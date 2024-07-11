@@ -54,9 +54,14 @@ def main():
     while True:
         success, img = cap.read()
         
-        img = detector.findHands(img)
+        # if wee set draw = false, it will not draw the marks
+        img = detector.findHands(img, draw=False)
 
-        lmList = detector.findPosition(img)
+        # here if we set draw = false, it will not draw the landmarks of specific points
+        lmList = detector.findPosition(img, draw=False)
+
+        # By setting draw = false in the above 2 code lines, we can get the landmarks/points of hand without drawing the whole hand points and connections
+
         if len(lmList) != 0:
             print(lmList[4]) #Print the landmarks of a specific handPoint
 
