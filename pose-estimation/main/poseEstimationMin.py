@@ -1,6 +1,6 @@
 import cv2 as cv
 import mediapipe as mp
-
+import time
 
 
 #defining a function which takes first parameter as the original frame 
@@ -17,17 +17,23 @@ def rescaleFrame(frame, scale =0.5):
 
 capture = cv.VideoCapture('../videos/walking.mp4')
 # capture = cv.VideoCapture(0)
+
+pTime = 0
 while True:
     isTrue, frame = capture.read()
     # defining the rescaled dimensions by passing 1st parameter as the original frame and then the scale
     # if no parameter is passed in 2nd place, it will take 0.5 by default as stated in the function 'rescaleFrame'
     frame_resized = rescaleFrame(frame)
 
-    
+    cTime = time.time()
+    fps = 1/(cTime - pTime)
+    pTime = cTime
+    cv.putText(frame_resized, str(int(fps)), (70, 50), cv.FONT_HERSHEY_PLAIN, 3, (255, 0, 0), 3)
+
     # cv.imshow('Original video',frame)
     cv.imshow('Resized Video',frame_resized)
-    
-    if cv.waitKey(20) & 0xFF == ord('q'):
+
+    if cv.waitKey(1) & 0xFF == ord('q'):
         break
 
 capture.release()
