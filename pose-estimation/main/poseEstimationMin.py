@@ -34,9 +34,14 @@ while True:
     frame_resized = rescaleFrame(frame)
     frame_resized_rgb = cv.cvtColor(frame_resized, cv.COLOR_BGR2RGB)
     results = pose.process(frame_resized_rgb)
-    print(results.pose_landmarks)
+    # print(results.pose_landmarks)
     if(results.pose_landmarks):
         mpDraw.draw_landmarks(frame_resized, results.pose_landmarks, mpPose.POSE_CONNECTIONS)
+        for id, lm in enumerate(results.pose_landmarks.landmark):
+            h, w, c = frame_resized.shape
+            print(id, lm)
+            cx, cy = int(lm.x * w), int(lm.y * h)
+            cv.circle(frame_resized, (cx, cy), 5, (255, 0, 0), -1)
 
     cTime = time.time()
     fps = 1/(cTime - pTime)
