@@ -77,10 +77,12 @@ def main():
         isTrue, frame = capture.read()
         img = detector.findPose(frame, draw=True)
         lmList = detector.findPosition(img, draw=False)
-        print(lmList[14])
+       
+        if len(lmList) !=0  :
+            print(lmList[14])
 
-        # Track a specific joint/point
-        cv.circle(img, (lmList[14][1], lmList[14][2]), 10, (255, 0, 0), -1)
+            # Track a specific joint/point
+            cv.circle(img, (lmList[14][1], lmList[14][2]), 10, (255, 0, 0), -1)
 
         cTime = time.time()
         fps = 1/(cTime - pTime)
