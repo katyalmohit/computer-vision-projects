@@ -20,6 +20,11 @@ while True:
             mpDraw.draw_landmarks(img, faceLms, mpFaceMesh.FACEMESH_TESSELATION, drawSpec, drawSpec)
             # mpDraw.draw_landmarks(img, faceLms) # If we don't want to display connections
 
+            for id, lm in enumerate(faceLms.landmark):
+                # print(lm)
+                ih, iw, ic = img.shape
+                x, y = int(lm.x*iw), int(lm.y*ih)
+                print(id, x, y)
 
     cTime = time.time()
     fps = 1/(cTime-pTime)
