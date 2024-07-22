@@ -34,18 +34,26 @@ class faceMeshDetector():
         img_rgb = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         self.results = self.faceMesh.process(img_rgb)
 
+        faces = []
         if self.results.multi_face_landmarks:
             for faceLms in self.results.multi_face_landmarks:
                 if draw:
                     self.mpDraw.draw_landmarks(img, faceLms, self.mpFaceMesh.FACEMESH_TESSELATION, self.drawSpec, self.drawSpec)
-                mpDraw.draw_landmarks(img, faceLms) # If we don't want to display connections
+                    # self.mpDraw.draw_landmarks(img, faceLms) # If we don't want to display connections
 
+                    
+                face = []
                 for id, lm in enumerate(faceLms.landmark):
                     # print(lm)
                     ih, iw, ic = img.shape
                     x, y = int(lm.x*iw), int(lm.y*ih)
-                    print(id, x, y)
-        return img
+                    
+                    ##Display id No. on the respective landmark
+                    # cv.putText(img, str(id), (x, y), cv.FONT_HERSHEY_PLAIN, 0.4, (0, 255, 0), 1)
+                    # print(id, x, y)
+                    face.append([x, y])
+                faces.append(face)
+        return img, faces
    
 
 def main():
@@ -58,7 +66,10 @@ def main():
     while True:
         success, img = cap.read()
 
-        img = detector.findFaceMesh(img, draw= True)
+        img, faces = detector.findFaceMesh(img, draw= True)
+        if len(faces)!=0:
+            print(len(faces[0]))
+            # print(faces[0])
 
         cTime = time.time()
         fps = 1/(cTime-pTime)
