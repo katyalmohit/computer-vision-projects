@@ -9,7 +9,7 @@ capture = cv.VideoCapture('../videos/dance2.mp4')
 # capture = cv.VideoCapture('../videos/skipping.mp4')
 
 # capture = cv.VideoCapture(0)
-detector = pm.poseDetector()
+detector = pm.PoseDetector()
 
 pTime = 0
 while True:

@@ -3,7 +3,7 @@ import mediapipe as mp
 import time
 
 
-class faceMeshDetector():
+class FaceMeshDetector():
     def __init__(self, staticMode = False, maxFaces = 2, minDetectionCon = 0.5, minTrackCon = 0.5, thickness=1, circle_radius=1, color=(0,255, 0)):
 
         self.staticMode = staticMode
@@ -61,7 +61,7 @@ def main():
     cap = cv.VideoCapture(0)
     pTime = 0
 
-    detector = faceMeshDetector()
+    detector = FaceMeshDetector()
 
     while True:
         success, img = cap.read()

@@ -16,7 +16,7 @@ def rescaleFrame(frame, scale =0.25):
 
 
 
-class poseDetector():
+class PoseDetector():
     def __init__(self, mode=False, upperBody=False, smooth=True, detectionCon=0.5, trackCon=0.5):
         self.mode = mode
         self.upperBody = upperBody
@@ -70,7 +70,7 @@ def main():
     # capture = cv.VideoCapture('../videos/skipping.mp4')
 
     # capture = cv.VideoCapture(0)
-    detector = poseDetector()
+    detector = PoseDetector()
 
     pTime = 0
     while True:

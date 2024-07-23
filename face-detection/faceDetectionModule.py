@@ -14,7 +14,7 @@ def rescaleFrame(frame, scale =1):
 
 
 
-class faceDetector():
+class FaceDetector():
     def __init__(self, minDetectionCon=0.5):
         self.minDetectionCon = minDetectionCon
 
@@ -72,7 +72,7 @@ def main():
 
     cap = cv.VideoCapture(0)
     pTime = 0
-    detector = faceDetector(0.4)
+    detector = FaceDetector(0.4)
 
     while True:
         success, img = cap.read()
