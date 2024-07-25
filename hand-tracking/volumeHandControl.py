@@ -6,20 +6,22 @@ import math
 import alsaaudio
 from subprocess import call
 
-valid = False
 
-while not valid:
-    volume = input('What volume? > ')
+minVol, maxVol = 0, 100
 
-    try:
-        volume = int(volume)
-        minVol, maxVol = 0, 100
-        if (volume <= maxVol) and (volume >= minVol):
-            call(["amixer", "-D", "pulse", "sset", "Master", str(volume)+"%"])
-            valid = True
+def  setVolume(newVol):
+    valid = False
 
-    except ValueError:
-        pass
+    while not valid:
+
+        try:
+            volume = newVol
+            if (volume <= maxVol) and (volume >= minVol):
+                call(["amixer", "-D", "pulse", "sset", "Master", str(volume)+"%"])
+                valid = True
+
+        except ValueError:
+            pass
 
 
 #######################
@@ -63,11 +65,12 @@ while True:
         # Volume range 0 - 100
 
         vol = np.interp(length, [10, 250], [minVol, maxVol])
-        print(vol)
+        # print(length, vol)
+        setVolume(vol)
 
 
         if length<50:
-            cv.circle(img, (cx, cy), 8, (0, 0, 255), -1)
+            cv.circle(img, (cx, cy), 8, (0, 255, 0), -1)
 
 
     cTime = time.time()
