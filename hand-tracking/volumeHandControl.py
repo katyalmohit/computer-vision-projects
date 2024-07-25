@@ -36,7 +36,9 @@ cap.set(4, hCam) #prop ID at No. 4 is height
 detector = htm.HandDetector() # We can also change the parameters from here
 
 pTime = 0
-
+vol = 0
+volBar = 400
+volPer = 0
 
 while True:
     success, img = cap.read()
@@ -65,6 +67,9 @@ while True:
         # Volume range 0 - 100
 
         vol = np.interp(length, [10, 250], [minVol, maxVol])
+        volBar = np.interp(length, [10, 250], [400, 150])
+        volPer = np.interp(length, [10, 250], [minVol, maxVol])
+
         # print(length, vol)
         setVolume(vol)
 
@@ -72,6 +77,9 @@ while True:
         if length<50:
             cv.circle(img, (cx, cy), 8, (0, 255, 0), -1)
 
+    cv.rectangle(img, (50, 150), (85, 400), (0, 255, 0), 3)
+    cv.rectangle(img, (50, int(volBar)), (85, 400), (0, 255, 0), -1)
+    cv.putText(img, f"{int(volPer)}%", (50, 450), cv.FONT_HERSHEY_PLAIN, 3, (0, 255, 0), 2)
 
     cTime = time.time()
     fps = 1/(cTime-pTime)
