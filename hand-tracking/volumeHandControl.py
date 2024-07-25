@@ -57,10 +57,13 @@ while True:
         cv.circle(img, (cx, cy), 8, (255, 0, 255), -1)
 
         length = math.hypot(x2 - x1, y2 - y1)
-        print(length)
+        # print(length)
 
         # Hand range 10 - 250
         # Volume range 0 - 100
+
+        vol = np.interp(length, [10, 250], [minVol, maxVol])
+        print(vol)
 
 
         if length<50:
