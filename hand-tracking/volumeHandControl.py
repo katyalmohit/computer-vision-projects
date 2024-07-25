@@ -77,15 +77,15 @@ while True:
         if length<50:
             cv.circle(img, (cx, cy), 8, (0, 255, 0), -1)
 
-    cv.rectangle(img, (50, 150), (85, 400), (0, 255, 0), 3)
-    cv.rectangle(img, (50, int(volBar)), (85, 400), (0, 255, 0), -1)
-    cv.putText(img, f"{int(volPer)}%", (50, 450), cv.FONT_HERSHEY_PLAIN, 3, (0, 255, 0), 2)
+    cv.rectangle(img, (50, 150), (85, 400), (255, 0, 0), 3)
+    cv.rectangle(img, (50, int(volBar)), (85, 400), (255, 0, 0), -1)
+    cv.putText(img, f"{int(volPer)}%", (30, 450), cv.FONT_HERSHEY_PLAIN, 3, (255, 0, 0), 2)
 
     cTime = time.time()
     fps = 1/(cTime-pTime)
     pTime = cTime
 
-    cv.putText(img, f"FPS: {int(fps)}", (10, 70), cv.FONT_HERSHEY_PLAIN, 3, (0, 255, 0), 2)
+    cv.putText(img, f"FPS: {int(fps)}", (10, 70), cv.FONT_HERSHEY_PLAIN, 3, (255, 0, 0), 2)
     cv.imshow("Video", img)
 
     if cv.waitKey(1) & 0xFF == ord('q'):
