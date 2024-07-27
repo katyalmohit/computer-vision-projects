@@ -1,6 +1,7 @@
 import cv2 as cv
 import mediapipe as mp
 import time
+import math
 
     
 #defining a function which takes first parameter as the original frame 
@@ -60,12 +61,20 @@ class PoseDetector():
         return self.lmList
 
     def findAngle(self, img, p1, p2, p3, draw=True):
+
+        # Get the landmarks
         x1, y1 = self.lmList[p1][1:]
         # _, x1, y1 = self.lmList[p1] # We can also define it like this
 
         x2, y2 = self.lmList[p2][1:]
         x3, y3 = self.lmList[p3][1:]
-        
+
+        # Calculate the angle
+        angle = math.degrees(math.atan2(y1-y2, x1-x2)- math.atan2(y3-y2, x3-x2))
+        print(angle)
+
+
+        # Draw
         if draw:
             cv.line(img, (x1, y1), (x2, y2), (0, 255, 0), 3)
             cv.line(img, (x3, y3), (x2, y2), (0, 255, 0), 3)
