@@ -91,7 +91,8 @@ class PoseDetector():
 
             # Display angle
             cv.putText(img, str(int(angle)), (x2-50, y2+50), cv.FONT_HERSHEY_PLAIN, 2, (0, 0, 255), 2)
-
+        
+        return angle
 
 
 def main():
