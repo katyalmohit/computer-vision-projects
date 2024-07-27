@@ -38,7 +38,8 @@ class PoseDetector():
 
         # defining the rescaled dimensions by passing 1st parameter as the original frame and then the scale
         # if no parameter is passed in 2nd place, it will take scale by default as stated in the function 'rescaleFrame'
-        img_resized = rescaleFrame(img)
+        # img_resized = rescaleFrame(img)
+        img_resized = img
         img_resized_rgb = cv.cvtColor(img_resized, cv.COLOR_BGR2RGB)
         self.results = self.pose.process(img_resized_rgb)
         # print(results.pose_landmarks)
