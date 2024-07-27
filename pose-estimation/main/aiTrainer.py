@@ -4,8 +4,8 @@ import numpy as np
 import PoseModule as pm
 
 
-# cap = cv.VideoCapture('../videos/dumbbells.mp4')
-cap = cv.VideoCapture(0)
+cap = cv.VideoCapture('../videos/dumbbells.mp4')
+# cap = cv.VideoCapture(0)
 
 count = 0
 dir = 0         # 0 denotes going up, 1 denotes going down
