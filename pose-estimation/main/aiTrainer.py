@@ -29,7 +29,7 @@ while True:
 #     # cv.imshow("Video", img)
     img = cv.imread('../videos/dips2.jpg')
     img = rescaleFrame(img, scale = 0.5)
-    img = detector.findPose(img, draw = True)
+    img = detector.findPose(img, draw = False)
     
     lmList = detector.findPosition(img, draw=False)
     # print(lmList)

@@ -67,9 +67,15 @@ class PoseDetector():
         x3, y3 = self.lmList[p3][1:]
         
         if draw:
-            cv.circle(img, (x1, y1), 5, (255, 0, 0), -1)
-            cv.circle(img, (x2, y2), 5, (255, 0, 0), -1)
-            cv.circle(img, (x3, y3), 5, (255, 0, 0), -1)
+            cv.line(img, (x1, y1), (x2, y2), (0, 255, 0), 3)
+            cv.line(img, (x3, y3), (x2, y2), (0, 255, 0), 3)
+
+            cv.circle(img, (x1, y1), 10, (0, 0, 255), -1)
+            cv.circle(img, (x1, y1), 15, (255, 0, 0), 2)
+            cv.circle(img, (x2, y2), 10, (0, 0, 255), -1)
+            cv.circle(img, (x2, y2), 15, (255, 0, 0), 2)
+            cv.circle(img, (x3, y3), 10, (0, 0, 255), -1)
+            cv.circle(img, (x3, y3), 15, (255, 0, 0), 2)
 
 
 
