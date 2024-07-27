@@ -32,7 +32,11 @@ while True:
     img = detector.findPose(img, draw = True)
     
     lmList = detector.findPosition(img, draw=False)
-    print(lmList)
+    # print(lmList)
+
+    if len(lmList) != 0:
+        detector.findAngle(img, 11, 13, 15)
+
     cv.imshow("Image", img)
     if cv.waitKey(1) & 0xFF == ord('q'):
         break
