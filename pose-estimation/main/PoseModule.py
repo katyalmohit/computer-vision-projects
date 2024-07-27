@@ -71,7 +71,10 @@ class PoseDetector():
 
         # Calculate the angle
         angle = math.degrees(math.atan2(y1-y2, x1-x2)- math.atan2(y3-y2, x3-x2))
-        print(angle)
+        # print(angle)
+
+        if angle<0:
+            angle+=360
 
 
         # Draw
@@ -85,6 +88,9 @@ class PoseDetector():
             cv.circle(img, (x2, y2), 15, (255, 0, 0), 2)
             cv.circle(img, (x3, y3), 10, (0, 0, 255), -1)
             cv.circle(img, (x3, y3), 15, (255, 0, 0), 2)
+
+            # Display angle
+            cv.putText(img, str(int(angle)), (x2-50, y2+50), cv.FONT_HERSHEY_PLAIN, 2, (0, 0, 255), 2)
 
 
 
