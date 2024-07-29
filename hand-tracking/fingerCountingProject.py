@@ -12,7 +12,7 @@ cap = cv.VideoCapture(0)
 cap.set(3, wCam) #prop ID at No. 3 is width
 cap.set(4, hCam) #prop ID at No. 4 is height
 
-folderPath = "./images"
+folderPath = "./resources/finger-images"
 myList = os.listdir(folderPath)
 myList = sorted(myList)
 print(myList)
