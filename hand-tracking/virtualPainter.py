@@ -68,7 +68,7 @@ while True:
 
         # 4. If selection mode - two fingers are up
         if (fingers[1] & fingers[2]):
-            
+            xp, yp = 0, 0
             print("Selection Mode")
 
             # Checking for the click
@@ -110,7 +110,7 @@ while True:
     # Setting the header image
     img[0:125, 0:1280] = header
 
-    img = cv.addWeighted(img, 0.5, imgCanvas, 0.5, 0)
+    # img = cv.addWeighted(img, 0.5, imgCanvas, 0.5, 0)
 
     cv.imshow("Video", img)
     cv.imshow("Drawing", imgCanvas)
