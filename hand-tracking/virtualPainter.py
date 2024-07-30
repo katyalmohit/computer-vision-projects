@@ -6,7 +6,7 @@ import os
 
 ##################
 brushThickness = 15
-
+eraserThickness = 50
 ##################
 
 
@@ -43,6 +43,9 @@ detector = htm.HandDetector(detectionCon = 0.85) # Higher confidence to avoid mi
 
 drawColor = (255, 0, 255)
 xp, yp = 0, 0
+
+imgCanvas = np.zeros((720, 1280, 3), np.uint8)
+
 while True:
     # 1. Import image
     success, img = cap.read()
@@ -81,7 +84,7 @@ while True:
                     drawColor = (0, 255, 0)
                 elif(800<x1<1000):
                     header = overlayList[3]
-                    drawColor = (255, 255, 255)
+                    drawColor = (0, 0, 0)
 
             cv.rectangle(img, (x1, y1+15), (x2, y2+15), drawColor, -1)
 
@@ -93,15 +96,24 @@ while True:
             if (xp ==0 & yp == 0):
                 xp, yp = x1, y1
             
-            cv.line(img, (xp, yp), (x1, y1), drawColor, brushThickness)
+            if (drawColor == (255, 255, 255) or drawColor == (0, 0, 0)):
+                cv.line(img, (xp, yp), (x1, y1), drawColor, eraserThickness)
+                cv.line(imgCanvas, (xp, yp), (x1, y1), drawColor, eraserThickness)
+
+            else:
+                cv.line(img, (xp, yp), (x1, y1), drawColor, brushThickness)
+                cv.line(imgCanvas, (xp, yp), (x1, y1), drawColor, brushThickness)
 
             xp, yp = x1, y1
 
-
+    
     # Setting the header image
     img[0:125, 0:1280] = header
 
+    img = cv.addWeighted(img, 0.5, imgCanvas, 0.5, 0)
+
     cv.imshow("Video", img)
+    cv.imshow("Drawing", imgCanvas)
 
     if cv.waitKey(1) & 0xFF == ord('q'):
         break
