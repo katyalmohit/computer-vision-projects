@@ -4,6 +4,12 @@ import time
 import HandTrackingModule as htm
 import os
 
+##################
+brushThickness = 15
+
+##################
+
+
 def rescaleImage(image, height, width):
     width = int(width)
     height = int(height)
@@ -35,6 +41,8 @@ cap.set(4, 720)
 
 detector = htm.HandDetector(detectionCon = 0.85) # Higher confidence to avoid mistakes
 
+drawColor = (255, 0, 255)
+xp, yp = 0, 0
 while True:
     # 1. Import image
     success, img = cap.read()
@@ -53,28 +61,41 @@ while True:
 
         # 3. Check which fingers are up
         fingers = detector.fingersUp()
-        # print(fingers)
+        print(fingers)
 
         # 4. If selection mode - two fingers are up
         if (fingers[1] & fingers[2]):
-            cv.rectangle(img, (x1, y1+15), (x2, y2+15), (255, 0, 255), -1)
+            
             print("Selection Mode")
 
             # Checking for the click
             if y1 < 125:
                 if (200<x1<400):
                     header = overlayList[0]
+                    drawColor = (0, 0, 255)
                 elif(400<x1<600):
                     header = overlayList[1]
+                    drawColor = (0, 255, 255)
                 elif(600<x1<800):
                     header = overlayList[2]
+                    drawColor = (0, 255, 0)
                 elif(800<x1<1000):
                     header = overlayList[3]
+                    drawColor = (255, 255, 255)
+
+            cv.rectangle(img, (x1, y1+15), (x2, y2+15), drawColor, -1)
 
         # 5. If drawing mode - index finger is up
         if (fingers[1] & fingers[2]== False):
-            cv.circle(img, (x1, y1), 15, (255, 0, 255), -1)
+            cv.circle(img, (x1, y1), 15, drawColor, -1)
             print("Drawing Mode")
+
+            if (xp ==0 & yp == 0):
+                xp, yp = x1, y1
+            
+            cv.line(img, (xp, yp), (x1, y1), drawColor, brushThickness)
+
+            xp, yp = x1, y1
 
 
     # Setting the header image
