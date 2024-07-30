@@ -106,6 +106,12 @@ while True:
 
             xp, yp = x1, y1
 
+    imgGray = cv.cvtColor(imgCanvas, cv.COLOR_BGR2GRAY)
+    _, imgInv = cv.threshold(imgGray, 50, 255, cv.THRESH_BINARY_INV)
+    imgInv = cv.cvtColor(imgInv, cv.COLOR_GRAY2BGR)
+    img = cv.bitwise_and(img, imgInv)
+    img = cv.bitwise_or(img, imgCanvas)
+
     
     # Setting the header image
     img[0:125, 0:1280] = header
@@ -113,6 +119,7 @@ while True:
     # img = cv.addWeighted(img, 0.5, imgCanvas, 0.5, 0)
 
     cv.imshow("Video", img)
+    # cv.imshow("imgInv", imgInv) 
     cv.imshow("Drawing", imgCanvas)
 
     if cv.waitKey(1) & 0xFF == ord('q'):
