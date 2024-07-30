@@ -23,11 +23,11 @@ overlayList = []
 
 for imPath in myList:
     image = cv.imread(f'{folderPath}/{imPath}')
+    image = rescaleImage(image, 125, 1280)
     overlayList.append(image)
 # print(len(overlayList))
 
 header = overlayList[0]
-header = rescaleImage(header, 125, 1280)
 
 cap = cv.VideoCapture(0)
 cap.set(3, 1280)
@@ -53,12 +53,23 @@ while True:
 
         # 3. Check which fingers are up
         fingers = detector.fingersUp()
-        print(fingers)
+        # print(fingers)
 
         # 4. If selection mode - two fingers are up
         if (fingers[1] & fingers[2]):
             cv.rectangle(img, (x1, y1+15), (x2, y2+15), (255, 0, 255), -1)
             print("Selection Mode")
+
+            # Checking for the click
+            if y1 < 125:
+                if (200<x1<400):
+                    header = overlayList[0]
+                elif(400<x1<600):
+                    header = overlayList[1]
+                elif(600<x1<800):
+                    header = overlayList[2]
+                elif(800<x1<1000):
+                    header = overlayList[3]
 
         # 5. If drawing mode - index finger is up
         if (fingers[1] & fingers[2]== False):
