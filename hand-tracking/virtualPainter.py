@@ -45,13 +45,16 @@ while True:
     lmList = detector.findPosition(img, draw=False)
 
     if len(lmList) != 0:
-        print(lmList)
+        # print(lmList)
 
         # tip of index and middle fingers
         x1, y1 = lmList[8][1:]
         x2, y2 = lmList[12][1:]
 
-    # 3. Check which fingers are up
+        # 3. Check which fingers are up
+        fingers = detector.fingersUp()
+        print(fingers)
+
     # 4. If selection mode - two fingers are up
     # 5. If drawing mode - index finger is up
 
