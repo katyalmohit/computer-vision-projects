@@ -57,10 +57,12 @@ while True:
 
         # 4. If selection mode - two fingers are up
         if (fingers[1] & fingers[2]):
+            cv.rectangle(img, (x1, y1+15), (x2, y2+15), (255, 0, 255), -1)
             print("Selection Mode")
 
         # 5. If drawing mode - index finger is up
         if (fingers[1] & fingers[2]== False):
+            cv.circle(img, (x1, y1), 15, (255, 0, 255), -1)
             print("Drawing Mode")
 
 
