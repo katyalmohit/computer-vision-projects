@@ -33,12 +33,24 @@ cap = cv.VideoCapture(0)
 cap.set(3, 1280)
 cap.set(4, 720)
 
+detector = htm.HandDetector(detectionCon = 0.85) # Higher confidence to avoid mistakes
+
 while True:
     # 1. Import image
     success, img = cap.read()
     img = cv.flip(img, 1)
 
     # 2. Find Hand landmarks
+    img = detector.findHands(img, draw = True)
+    lmList = detector.findPosition(img, draw=False)
+
+    if len(lmList) != 0:
+        print(lmList)
+
+        # tip of index and middle fingers
+        x1, y1 = lmList[8][1:]
+        x2, y2 = lmList[12][1:]
+
     # 3. Check which fingers are up
     # 4. If selection mode - two fingers are up
     # 5. If drawing mode - index finger is up
