@@ -23,7 +23,7 @@ folderPath = "./resources/header-images"
 
 myList = os.listdir(folderPath)
 myList = sorted(myList)
-print(myList)
+# print(myList)
 
 overlayList = []
 
@@ -64,7 +64,7 @@ while True:
 
         # 3. Check which fingers are up
         fingers = detector.fingersUp()
-        print(fingers)
+        # print(fingers)
 
         # 4. If selection mode - two fingers are up
         if (fingers[1] & fingers[2]):
