@@ -6,7 +6,7 @@ import os
 
 ##################
 brushThickness = 15
-eraserThickness = 50
+eraserThickness = 100   
 ##################
 
 
@@ -120,7 +120,7 @@ while True:
 
     cv.imshow("Video", img)
     # cv.imshow("imgInv", imgInv) 
-    cv.imshow("Drawing", imgCanvas)
+    # cv.imshow("Drawing", imgCanvas)
 
     if cv.waitKey(1) & 0xFF == ord('q'):
         break
