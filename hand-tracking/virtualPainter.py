@@ -55,8 +55,13 @@ while True:
         fingers = detector.fingersUp()
         print(fingers)
 
-    # 4. If selection mode - two fingers are up
-    # 5. If drawing mode - index finger is up
+        # 4. If selection mode - two fingers are up
+        if (fingers[1] & fingers[2]):
+            print("Selection Mode")
+
+        # 5. If drawing mode - index finger is up
+        if (fingers[1] & fingers[2]== False):
+            print("Drawing Mode")
 
 
     # Setting the header image
