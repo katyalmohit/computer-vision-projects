@@ -17,6 +17,7 @@ class HandDetector():
         # Define the drawing specifications for landmarks and connections
         self.handDrawingSpec = self.mpDraw.DrawingSpec(color=(0, 0, 255), thickness=2, circle_radius=2)
         self.handConnectionSpec = self.mpDraw.DrawingSpec(color=(0, 255, 0), thickness=2, circle_radius=2)
+        self.tipIds = [4, 8, 12, 16, 20]
 
     def findHands(self, img, draw=True):
         imgRGB = cv.cvtColor(img, cv.COLOR_BGR2RGB)
@@ -29,16 +30,32 @@ class HandDetector():
         return img
 
     def findPosition(self, img, handNum=0, draw=True):
-        lmList = []
+        self.lmList = []
         if self.results.multi_hand_landmarks:
             myHand = self.results.multi_hand_landmarks[handNum]
             for id, lm in enumerate(myHand.landmark):
                 h, w, c = img.shape
                 cx, cy = int(lm.x * w), int(lm.y * h)
-                lmList.append([id, cx, cy])
+                self.lmList.append([id, cx, cy])
                 if draw:
                     cv.circle(img, (cx, cy), 8, (255, 0, 255), -1)
-        return lmList
+        return self.lmList
+
+    def fingersUp(self):
+
+        if (self.lmList[self.tipIds[0]][1] > self.lmList[self.tipIds[0]-1][1]):
+            fingers.append(1)
+        else:
+            fingers.append(0)
+
+        # 4 Fingers
+        for id in range(1, 5):
+            if (self.lmList[self.tipIds[id]][2] < self.lmList[self.tipIds[id]-2][2]):
+                fingers.append(1)
+            else:
+                fingers.append(0)
+        return fingers
+
 
 def main():
     pTime = 0
