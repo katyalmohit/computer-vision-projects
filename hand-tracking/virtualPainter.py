@@ -34,7 +34,14 @@ cap.set(3, 1280)
 cap.set(4, 720)
 
 while True:
+    # 1. Import image
     success, img = cap.read()
+
+    # 2. Find Hand landmarks
+    # 3. Check which fingers are up
+    # 4. If selection mode - two fingers are up
+    # 5. If drawing mode - index finger is up
+    
 
     # Setting the header image
     img[0:125, 0:1280] = header
