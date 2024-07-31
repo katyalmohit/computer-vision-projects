@@ -7,6 +7,7 @@ import pyautogui
 
 ######################
 wCam, hCam = 640, 480
+frameR = 100 # Frame Reduction
 ######################
 
 cap = cv.VideoCapture(0)
@@ -17,8 +18,8 @@ cap.set(4, hCam)
 pTime = 0
 detector = htm.HandDetector(maxHands=1)
 
-# wScr, hScr = pyautogui.size()
-wScr, hScr = 1920, 1080
+wScr, hScr = pyautogui.size()
+# wScr, hScr = 1920, 1080
 # print(wScr, hScr)
 while True:
     success, img = cap.read()
@@ -28,6 +29,7 @@ while True:
     lmList= detector.findPosition(img, draw = False)
 
     # 2. Get the landmarks of tip of index and middle fingers
+    cv.rectangle(img, (frameR, frameR), (wCam-frameR, hCam-frameR), (255, 0, 255), 2)
     if len(lmList) !=0:
         x1, y1 = lmList[8][1:]
         x2, y2 = lmList[12][1:]
@@ -42,11 +44,13 @@ while True:
         if fingers[1]==1 and fingers[2]==0:
 
             # 5. Convert Coordinates
+            
             x3 = np.interp(x1, (0, wCam), (0, wScr))
             y3 = np.interp(y1, (0, hCam), (0, hScr))
             # 6. Smoothen Values
             # 7. Move Mouse
             pyautogui.moveTo(x3, y3)
+            cv.circle(img, (x1, y1), 15, (255, 0, 255), -1)
     # 8. Both Index and middle fingers are up: Clicking mode
     # 9. Find distance between fingers
     # 10. Click mouse if distance short
