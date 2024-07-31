@@ -8,7 +8,7 @@ import pyautogui
 ######################
 wCam, hCam = 640, 480
 frameR = 100 # Frame Reduction
-smoothening = 5
+smoothening = 7
 ######################
 
 cap = cv.VideoCapture(0)
