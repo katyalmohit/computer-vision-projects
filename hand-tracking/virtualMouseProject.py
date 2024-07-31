@@ -17,12 +17,26 @@ cap.set(4, hCam)
 pTime = 0
 detector = htm.HandDetector(maxHands=1)
 
+wScr, hScr = pyautogui.size()
+print(wScr, hScr)
 while True:
     success, img = cap.read()
-
+    img = cv.flip(img, 1)
     # 1. Find hand landmarks
+    img = detector.findHands(img)
+    lmList= detector.findPosition(img, draw = False)
+
     # 2. Get the landmarks of tip of index and middle fingers
-    # 3. Check which fingers are up
+    if len(lmList) !=0:
+        x1, y1 = lmList[8][1:]
+        x2, y2 = lmList[12][1:]
+        # print(x1, y1, x2, y2)
+
+        # 3. Check which fingers are up
+        fingers = detector.fingersUp()
+        print(fingers)
+
+
     # 4. Only index finger: Moving mode
     # 5. Convert Coordinates
     # 6. Smoothen Values
