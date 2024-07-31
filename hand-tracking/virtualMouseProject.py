@@ -45,8 +45,8 @@ while True:
 
             # 5. Convert Coordinates
             
-            x3 = np.interp(x1, (0, wCam), (0, wScr))
-            y3 = np.interp(y1, (0, hCam), (0, hScr))
+            x3 = np.interp(x1, (frameR, wCam-frameR), (0, wScr))
+            y3 = np.interp(y1, (frameR, hCam-frameR), (0, hScr))
             # 6. Smoothen Values
             # 7. Move Mouse
             pyautogui.moveTo(x3, y3)
