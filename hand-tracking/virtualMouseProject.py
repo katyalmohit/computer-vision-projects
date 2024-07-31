@@ -37,7 +37,7 @@ while True:
 
         # 3. Check which fingers are up
         fingers = detector.fingersUp()
-        print(fingers)
+        # print(fingers)
 
 
         # 4. Only index finger: Moving mode
@@ -51,14 +51,22 @@ while True:
             # 7. Move Mouse
             pyautogui.moveTo(x3, y3)
             cv.circle(img, (x1, y1), 15, (255, 0, 255), -1)
+
+
         # 8. Both Index and middle fingers are up: Clicking mode
         if fingers[1]==1 and fingers[2]==1:
-            length, img, _ = detector.findDistance(8, 12, img)
+            # 9. Find distance between fingers
+            length, img, lineInfo = detector.findDistance(8, 12, img)
             print(length)
 
+            # 10. Click mouse if distance short
+            if length<40:
+                cv.circle(img, (lineInfo[4], lineInfo[5]), 15, (0, 255, 0), -1)
+                pyautogui.click()
 
-    # 9. Find distance between fingers
-    # 10. Click mouse if distance short
+
+    
+    
 
     # 11. Frame Rate
     cTime = time.time()
