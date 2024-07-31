@@ -8,6 +8,7 @@ import pyautogui
 ######################
 wCam, hCam = 640, 480
 frameR = 100 # Frame Reduction
+smoothening = 5
 ######################
 
 cap = cv.VideoCapture(0)
@@ -16,6 +17,9 @@ cap.set(4, hCam)
 
 
 pTime = 0
+pLocX, pLocY = 0, 0 #Previous location
+cLocX, cLocY = 0, 0 #Current location
+
 detector = htm.HandDetector(maxHands=1)
 
 wScr, hScr = pyautogui.size()
@@ -47,10 +51,15 @@ while True:
             
             x3 = np.interp(x1, (frameR, wCam-frameR), (0, wScr))
             y3 = np.interp(y1, (frameR, hCam-frameR), (0, hScr))
+
             # 6. Smoothen Values
+            cLocX = pLocX + (x3 - pLocX) /smoothening
+            cLocY = pLocY + (y3 - pLocY) /smoothening
+
             # 7. Move Mouse
-            pyautogui.moveTo(x3, y3)
+            pyautogui.moveTo(cLocX, cLocY)
             cv.circle(img, (x1, y1), 15, (255, 0, 255), -1)
+            pLocX, pLocY = cLocX, cLocY
 
 
         # 8. Both Index and middle fingers are up: Clicking mode
